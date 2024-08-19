@@ -63,4 +63,8 @@ public class User {
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }
