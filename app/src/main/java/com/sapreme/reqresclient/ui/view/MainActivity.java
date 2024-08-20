@@ -1,6 +1,7 @@
 package com.sapreme.reqresclient.ui.view;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
                 userAdapter.setUserList(users);
             }
         });
+
+        binding.fetchUsersFab.setOnClickListener(view -> userViewModel.refreshUsers());
+        binding.clearUsersFab.setOnClickListener(view -> userViewModel.clearUsers());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
