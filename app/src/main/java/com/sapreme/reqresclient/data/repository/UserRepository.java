@@ -3,15 +3,18 @@ package com.sapreme.reqresclient.data.repository;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.sapreme.reqresclient.data.api.reqres.ApiService;
 import com.sapreme.reqresclient.data.api.reqres.RetrofitClient;
+import com.sapreme.reqresclient.data.db.AppDatabase;
+import com.sapreme.reqresclient.data.db.UserDao;
 import com.sapreme.reqresclient.data.model.User;
 import com.sapreme.reqresclient.data.model.UserBundle;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,27 +22,39 @@ import retrofit2.Response;
 
 public class UserRepository {
 
+    private final UserDao userDao;
     private final ApiService apiService;
-    private final MutableLiveData<List<User>> users = new MutableLiveData<>();
+    private final ExecutorService executorService;
 
     public UserRepository(Application application) {
+        AppDatabase database = AppDatabase.getInstance(application);
+        userDao = database.userDao();
         apiService = RetrofitClient.getApiService();
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     public LiveData<List<User>> getUsers() {
-        return users;
+        return userDao.getAll();
     }
 
     public void clearUsers() {
-        users.setValue(new ArrayList<>());
+        executorService.execute(userDao::clear);
     }
 
-    public LiveData<List<User>> getUsersFromApi() {
+    public void addUsers(Collection<User> users) {
+        executorService.execute(() -> userDao.add(users));
+    }
+
+    public void addUser(User user) {
+        executorService.execute(() -> userDao.add(user));
+    }
+
+    public void fetchUsersFromApi() {
         apiService.getUsers(null, null).enqueue(new Callback<UserBundle>() {
             @Override
             public void onResponse(Call<UserBundle> call, Response<UserBundle> response) {
                 if(response.isSuccessful() && response.body() != null) {
-                    users.setValue(response.body().getUsers());
+                    addUsers(response.body().getUsers());
                 }
             }
 
@@ -48,6 +63,5 @@ public class UserRepository {
                 //TODO
             }
         });
-        return users;
     }
 }

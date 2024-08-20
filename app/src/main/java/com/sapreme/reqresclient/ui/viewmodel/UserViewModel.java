@@ -4,7 +4,6 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.sapreme.reqresclient.data.model.User;
 import com.sapreme.reqresclient.data.repository.UserRepository;
@@ -21,7 +20,7 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     public void refreshUsers() {
-        userRepository.getUsersFromApi();
+        userRepository.fetchUsersFromApi();
     }
 
     public LiveData<List<User>> getUsers() {
