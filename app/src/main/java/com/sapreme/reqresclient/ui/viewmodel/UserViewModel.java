@@ -30,4 +30,8 @@ public class UserViewModel extends AndroidViewModel {
     public void clearUsers() {
         userRepository.clearUsers();
     }
+
+    public void addUser(User user){
+        userRepository.addUser(user);
+    }
 }

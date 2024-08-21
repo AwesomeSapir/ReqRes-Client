@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.sapreme.reqresclient.R;
 import com.sapreme.reqresclient.databinding.ActivityMainBinding;
 import com.sapreme.reqresclient.ui.adapter.UserAdapter;
+import com.sapreme.reqresclient.ui.bottomsheet.AddUserBottomSheet;
 import com.sapreme.reqresclient.ui.viewmodel.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
         binding.fetchUsersFab.setOnClickListener(view -> userViewModel.refreshUsers());
         binding.clearUsersFab.setOnClickListener(view -> userViewModel.clearUsers());
+        binding.addUserFab.setOnClickListener(view -> {
+            AddUserBottomSheet bottomSheet = new AddUserBottomSheet();
+            bottomSheet.show(getSupportFragmentManager(), "AddUserBottomSheet");
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
