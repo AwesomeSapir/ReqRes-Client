@@ -16,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.sapreme.reqresclient.data.model.User;
 import com.sapreme.reqresclient.databinding.BottomSheetAddUserBinding;
 import com.sapreme.reqresclient.ui.viewmodel.UserViewModel;
+import com.sapreme.reqresclient.utility.AvatarBuilder;
 
 public class AddUserBottomSheet extends BottomSheetDialogFragment {
 
@@ -59,6 +60,7 @@ public class AddUserBottomSheet extends BottomSheetDialogFragment {
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setEmail(email);
+            user.setAvatarUrl(null);
             userViewModel.addUser(user);
         }
         dismiss();

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sapreme.reqresclient.data.model.User;
 import com.sapreme.reqresclient.databinding.ItemUserBinding;
+import com.sapreme.reqresclient.utility.AvatarBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -54,9 +55,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         public void bind(User user) {
             binding.nameTextView.setText(user.getFullName());
             binding.emailTextView.setText(user.getEmail());
+            String avatarUrl = user.getAvatarUrl();
+            if(avatarUrl == null){
+                avatarUrl = AvatarBuilder.withName(user.getFullName()).buildUrl();
+            }
             Picasso.get()
-                    .load(user.getAvatarUrl())
-                    .into(binding.avatarImageView);
+                    .load(avatarUrl)
+                    .noFade()
+                    .into(binding.avatarView);
         }
     }
 }

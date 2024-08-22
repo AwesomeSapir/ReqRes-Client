@@ -13,34 +13,31 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/avatarImageView"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatarView"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:adjustViewBounds="false"
-            android:scaleType="fitCenter"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/nameTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{user.fullName}"
+            android:layout_marginStart="8dp"
             android:textAppearance="@android:style/TextAppearance.Material.Headline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/avatarImageView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/avatarView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="John Doe" />
 
         <TextView
             android:id="@+id/emailTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{user.email}"
+            tools:text="address@email.com"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/nameTextView"
             app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
