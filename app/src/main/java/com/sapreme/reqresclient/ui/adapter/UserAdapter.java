@@ -1,24 +1,41 @@
 package com.sapreme.reqresclient.ui.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.sapreme.reqresclient.data.model.User;
 import com.sapreme.reqresclient.databinding.ItemUserBinding;
 import com.sapreme.reqresclient.utility.AvatarBuilder;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
+public class UserAdapter extends ListAdapter<User, UserAdapter.UserViewHolder> {
 
-    private List<User> users = new ArrayList<>();
+    public UserAdapter() {
+        super(DIFF_CALLBACK );
+    }
+
+    private static final DiffUtil.ItemCallback<User> DIFF_CALLBACK  = new DiffUtil.ItemCallback<User>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull User oldItem, @NonNull User newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull User oldUser, @NonNull User newUser) {
+            return oldUser.equals(newUser);
+        }
+    };
 
     @NonNull
     @Override
@@ -30,17 +47,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        holder.bind(users.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return users.size();
-    }
-
-    public void setUserList(List<User> users) {
-        this.users = users;
-        notifyDataSetChanged();
+        holder.bind(getItem(position));
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
@@ -53,15 +60,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         }
 
         public void bind(User user) {
+            Log.i(this.toString(), "Binding user: " + user.getId() + " - " + user.getFullName());
             binding.nameTextView.setText(user.getFullName());
             binding.emailTextView.setText(user.getEmail());
             String avatarUrl = user.getAvatarUrl();
-            if(avatarUrl == null){
+            if (avatarUrl == null) {
                 avatarUrl = AvatarBuilder.withName(user.getFullName()).buildUrl();
             }
-            Picasso.get()
+            Glide.with(binding.avatarView.getContext())
                     .load(avatarUrl)
-                    .noFade()
+                    .dontAnimate()
                     .into(binding.avatarView);
         }
     }

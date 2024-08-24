@@ -35,11 +35,7 @@ public class MainActivity extends AppCompatActivity {
         binding.usersRecyclerView.setAdapter(userAdapter);
 
         userViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(UserViewModel.class);
-        userViewModel.getUsers().observe(this, users -> {
-            if(users != null) {
-                userAdapter.setUserList(users);
-            }
-        });
+        userViewModel.getUsers().observe(this, users -> userAdapter.submitList(users));
 
         binding.fetchUsersFab.setOnClickListener(view -> userViewModel.refreshUsers());
         binding.clearUsersFab.setOnClickListener(view -> userViewModel.clearUsers());
