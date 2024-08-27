@@ -37,12 +37,20 @@ public class UserRepository {
         return userDao.getAll();
     }
 
+    public LiveData<User> getUser(int id) {
+        return userDao.getById(id);
+    }
+
     public void clearUsers() {
         executorService.execute(userDao::clear);
     }
 
     public void addUsers(Collection<User> users) {
         executorService.execute(() -> userDao.add(users));
+    }
+
+    public void updateUser(User user){
+        executorService.execute(() -> userDao.update(user));
     }
 
     public void addUser(User user) {

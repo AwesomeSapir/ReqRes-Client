@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.sapreme.reqresclient.data.model.User;
 
@@ -27,10 +28,16 @@ public interface UserDao {
     @Delete
     public void delete(User user);
 
+    @Update
+    void update(User user);
+
     @Query("DELETE FROM users")
     void clear();
 
     @Query("SELECT * FROM users")
     LiveData<List<User>> getAll();
+
+    @Query("SELECT * FROM users WHERE id = :id")
+    LiveData<User> getById(int id);
 
 }

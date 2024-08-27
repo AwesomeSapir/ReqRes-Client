@@ -27,11 +27,17 @@ public class UserViewModel extends AndroidViewModel {
         return userRepository.getUsers();
     }
 
+    public LiveData<User> getUser(int id) { return userRepository.getUser(id); }
+
     public void clearUsers() {
         userRepository.clearUsers();
     }
 
     public void addUser(User user){
         userRepository.addUser(user);
+    }
+
+    public void updateUser(User user) {
+        userRepository.updateUser(user);
     }
 }
