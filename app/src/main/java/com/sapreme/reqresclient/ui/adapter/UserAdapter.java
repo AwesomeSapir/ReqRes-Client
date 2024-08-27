@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.sapreme.reqresclient.data.model.User;
 import com.sapreme.reqresclient.databinding.ItemUserBinding;
+import com.sapreme.reqresclient.ui.bottomsheet.userform.AddUserBottomSheetFragment;
+import com.sapreme.reqresclient.ui.bottomsheet.userform.EditUserBottomSheetFragment;
 import com.sapreme.reqresclient.utility.AvatarBuilder;
 
 import java.util.ArrayList;
@@ -69,8 +72,13 @@ public class UserAdapter extends ListAdapter<User, UserAdapter.UserViewHolder> {
             }
             Glide.with(binding.avatarView.getContext())
                     .load(avatarUrl)
-                    .dontAnimate()
+                    .circleCrop()
                     .into(binding.avatarView);
+            binding.getRoot().setOnLongClickListener(view -> {
+                EditUserBottomSheetFragment editUserBottomSheetFragment = new EditUserBottomSheetFragment(user);
+                editUserBottomSheetFragment.show(((AppCompatActivity) view.getContext()).getSupportFragmentManager(), editUserBottomSheetFragment.getTag());
+                return true;
+            });
         }
     }
 }

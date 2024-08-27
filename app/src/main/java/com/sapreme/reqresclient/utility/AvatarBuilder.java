@@ -7,7 +7,7 @@ public class AvatarBuilder {
     private String name;
     private String background = "random";
     private int size = 128;
-    private boolean rounded = true;
+    private boolean rounded = false;
     private boolean bold = true;
     private boolean uppercase = true;
 
