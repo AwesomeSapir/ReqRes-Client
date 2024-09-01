@@ -10,24 +10,10 @@
         android:id="@+id/avatarImageView"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        app:layout_constraintEnd_toStartOf="@+id/uploadAvatarButton"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
-
-    <Button
-        android:id="@+id/uploadAvatarButton"
-        style="@style/Widget.Material3.Button.IconButton.Outlined"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change Photo"
-        app:icon="@drawable/baseline_edit_24"
-        app:layout_constraintBottom_toBottomOf="@+id/avatarImageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/avatarImageView"
-        app:layout_constraintTop_toTopOf="@+id/avatarImageView" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailTextInput"
@@ -88,14 +74,12 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/actionButton"
         style="@style/Widget.Material3.Button.IconButton.Filled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:imeOptions="actionSend"
-        android:text="Add"
-        app:icon="@drawable/baseline_add_circle_24"
+        android:text="Action"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
