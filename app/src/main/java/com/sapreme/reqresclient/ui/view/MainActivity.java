@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        userAdapter = new UserAdapter();
-        binding.usersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        binding.usersRecyclerView.setAdapter(userAdapter);
-
         userViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(UserViewModel.class);
         userViewModel.getUsers().observe(this, users -> userAdapter.submitList(users));
+
+        userAdapter = new UserAdapter(userViewModel, getSupportFragmentManager());
+        binding.usersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.usersRecyclerView.setAdapter(userAdapter);
 
         binding.fetchUsersFab.setOnClickListener(view -> userViewModel.refreshUsers());
         //binding.clearUsersFab.setOnClickListener(view -> userViewModel.clearUsers());

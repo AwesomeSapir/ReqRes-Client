@@ -7,25 +7,34 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.sapreme.reqresclient.data.model.User;
 import com.sapreme.reqresclient.databinding.ItemUserBinding;
 import com.sapreme.reqresclient.ui.bottomsheet.userform.AddUserBottomSheetFragment;
 import com.sapreme.reqresclient.ui.bottomsheet.userform.EditUserBottomSheetFragment;
+import com.sapreme.reqresclient.ui.viewmodel.UserViewModel;
 import com.sapreme.reqresclient.utility.AvatarBuilder;
+import com.sapreme.reqresclient.utility.DialogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter extends ListAdapter<User, UserAdapter.UserViewHolder> {
 
-    public UserAdapter() {
+    private final UserViewModel userViewModel;
+    private final FragmentManager fragmentManager;
+
+    public UserAdapter(UserViewModel userViewModel, FragmentManager fragmentManager) {
         super(DIFF_CALLBACK );
+        this.userViewModel = userViewModel;
+        this.fragmentManager = fragmentManager;
     }
 
     private static final DiffUtil.ItemCallback<User> DIFF_CALLBACK  = new DiffUtil.ItemCallback<User>() {
@@ -45,7 +54,7 @@ public class UserAdapter extends ListAdapter<User, UserAdapter.UserViewHolder> {
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ItemUserBinding binding = ItemUserBinding.inflate(layoutInflater, parent, false);
-        return new UserViewHolder(binding);
+        return new UserViewHolder(binding, userViewModel, fragmentManager);
     }
 
     @Override
@@ -56,10 +65,14 @@ public class UserAdapter extends ListAdapter<User, UserAdapter.UserViewHolder> {
     public static class UserViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemUserBinding binding;
+        private final UserViewModel userViewModel;
+        private final FragmentManager fragmentManager;
 
-        public UserViewHolder(ItemUserBinding binding) {
+        public UserViewHolder(ItemUserBinding binding, UserViewModel userViewModel, FragmentManager fragmentManager) {
             super(binding.getRoot());
             this.binding = binding;
+            this.userViewModel = userViewModel;
+            this.fragmentManager = fragmentManager;
         }
 
         public void bind(User user) {
@@ -74,10 +87,19 @@ public class UserAdapter extends ListAdapter<User, UserAdapter.UserViewHolder> {
                     .load(avatarUrl)
                     .circleCrop()
                     .into(binding.avatarView);
-            binding.getRoot().setOnLongClickListener(view -> {
+            binding.editButton.setOnClickListener(view -> {
                 EditUserBottomSheetFragment editUserBottomSheetFragment = new EditUserBottomSheetFragment(user);
-                editUserBottomSheetFragment.show(((AppCompatActivity) view.getContext()).getSupportFragmentManager(), editUserBottomSheetFragment.getTag());
-                return true;
+                editUserBottomSheetFragment.show(fragmentManager, editUserBottomSheetFragment.getTag());
+            });
+            binding.deleteButton.setOnClickListener(view -> {
+                DialogUtil.showDeleteUserConfirmation(user, view.getContext(), confirmed -> {
+                    if(confirmed){
+                        userViewModel.deleteUser(user);
+                        Snackbar snackbar = Snackbar.make(view, "User deleted", Snackbar.LENGTH_LONG);
+                        snackbar.setAction("Undo", v -> userViewModel.addUser(user));
+                        snackbar.show();
+                    }
+                });
             });
         }
     }

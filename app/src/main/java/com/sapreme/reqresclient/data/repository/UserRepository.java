@@ -45,6 +45,14 @@ public class UserRepository {
         executorService.execute(userDao::clear);
     }
 
+    public void deleteUser(User user) {
+        executorService.execute(() -> userDao.delete(user));
+    }
+
+    public void deleteUsers(Collection<User> users) {
+        executorService.execute(() -> userDao.delete(users));
+    }
+
     public void addUsers(Collection<User> users) {
         executorService.execute(() -> userDao.add(users));
     }
