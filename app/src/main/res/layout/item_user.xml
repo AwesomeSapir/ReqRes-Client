@@ -17,6 +17,7 @@
             android:id="@+id/avatarView"
             android:layout_width="64dp"
             android:layout_height="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
@@ -26,8 +27,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:textAppearance="@android:style/TextAppearance.Material.Headline"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/editButton"
             app:layout_constraintStart_toEndOf="@+id/avatarView"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="John Doe" />
@@ -37,10 +39,30 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            tools:text="address@email.com"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/nameTextView"
             app:layout_constraintStart_toStartOf="@+id/nameTextView"
-            app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+            tools:text="address@email.com" />
+
+        <Button
+            android:id="@+id/editButton"
+            style="@style/Widget.Material3.Button.IconButton.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/baseline_edit_24"
+            app:layout_constraintBottom_toBottomOf="@+id/deleteButton"
+            app:layout_constraintEnd_toStartOf="@+id/deleteButton"
+            app:layout_constraintTop_toTopOf="@+id/deleteButton" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/baseline_delete_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

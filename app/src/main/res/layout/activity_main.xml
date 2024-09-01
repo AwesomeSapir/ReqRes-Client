@@ -8,45 +8,26 @@
     tools:context=".ui.view.MainActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/clearUsersFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:clickable="true"
-        android:src="@drawable/baseline_delete_24"
-        app:fabSize="mini"
-        app:layout_constraintBottom_toBottomOf="@+id/addUserFab"
-        app:layout_constraintEnd_toStartOf="@+id/addUserFab"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/addUserFab" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fetchUsersFab"
+        style="@style/Widget.Material3.FloatingActionButton.Small.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:src="@drawable/baseline_arrow_circle_down_24"
-        app:fabSize="mini"
-        app:layout_constraintBottom_toBottomOf="@+id/addUserFab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/addUserFab"
-        app:layout_constraintTop_toTopOf="@+id/addUserFab" />
+        android:layout_marginBottom="16dp"
+        app:srcCompat="@drawable/baseline_arrow_circle_down_24"
+        app:layout_constraintBottom_toTopOf="@+id/addUserFab"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addUserFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:src="@drawable/baseline_person_add_24"
-        app:fabCustomSize="64dp"
-        app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:srcCompat="@drawable/baseline_person_add_24"
+        style="@style/Widget.Material3.FloatingActionButton.Primary" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/usersRecyclerView"

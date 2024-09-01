@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         userViewModel.getUsers().observe(this, users -> userAdapter.submitList(users));
 
         binding.fetchUsersFab.setOnClickListener(view -> userViewModel.refreshUsers());
-        binding.clearUsersFab.setOnClickListener(view -> userViewModel.clearUsers());
+        //binding.clearUsersFab.setOnClickListener(view -> userViewModel.clearUsers());
         binding.addUserFab.setOnClickListener(view -> {
             AddUserBottomSheetFragment bottomSheet = new AddUserBottomSheetFragment();
             bottomSheet.show(getSupportFragmentManager(), "AddUserBottomSheet");
