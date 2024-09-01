@@ -8,7 +8,7 @@ import com.sapreme.reqresclient.data.model.User;
 public class EditUserBottomSheetFragment extends BaseUserBottomSheetFragment{
 
     public EditUserBottomSheetFragment(@NonNull User user) {
-        super(user, "Save", R.drawable.baseline_save_24);
+        super(user, "Save");
     }
 
     @Override

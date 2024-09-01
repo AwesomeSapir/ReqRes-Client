@@ -8,7 +8,7 @@ import com.sapreme.reqresclient.data.model.User;
 public class AddUserBottomSheetFragment extends BaseUserBottomSheetFragment{
 
     public AddUserBottomSheetFragment() {
-        super(null, "Add", R.drawable.baseline_add_circle_24);
+        super(null, "Add");
     }
 
     @Override
